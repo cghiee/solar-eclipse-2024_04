@@ -1,0 +1,39 @@
+import serial
+import csv
+import time
+
+# Replace '/dev/tty.usbserial' with the actual serial port connected to the DC electronic load
+serial_port = '/dev/tty.usbserial'
+baud_rate = 9600  # Set the baud rate as specified in the device manual
+
+# Open serial port
+with serial.Serial(serial_port, baud_rate, timeout=1) as ser:
+    # Open or create a CSV file to log the data
+    with open('current_log.csv', 'w', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile)
+        csv_writer.writerow(['Timestamp', 'Current (A)'])  # Write the header row
+        
+        try:
+            while True:
+                # Send SCPI command to measure current
+                ser.write(b'MEAS:CURR?\n')
+                time.sleep(0.1)  # Wait for the device to respond
+                
+                # Read the response from the device
+                current_reading = ser.readline().decode().strip()
+                
+                # Log the current time and the current reading to the CSV file
+                csv_writer.writerow([time.strftime('%Y-%m-%d %H:%M:%S'), current_reading])
+                
+                # Wait for 1 second before the next reading
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print("Program terminated by user.")
+
+
+
+
+#you'll need pyserial
+# pip install pyserial
+
+
