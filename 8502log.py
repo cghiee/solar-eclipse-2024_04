@@ -4,6 +4,8 @@ import csv
 from datetime import datetime
 import os
 
+### SET SCPI as the protocol on the 8502B Electronic load.
+
 def get_unique_filename(base_filename):
     """
     Generates a unique filename by adding a serial number if the base filename already exists.
