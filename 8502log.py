@@ -24,7 +24,10 @@ def get_unique_filename(base_filename):
     return new_filename
 
 # The device file for the USB to TTL adapter
-serial_port = '/dev/tty.usbserial-14330'
+
+
+serial_port = '/dev/tty.usbserial-14320'
+
 baud_rate = 9600  # Adjust as needed to match your device's requirements
 
 # Open the serial port
@@ -48,7 +51,7 @@ with open(csv_file_path, mode='w', newline='') as file:
     writer.writerow(['UTC Timestamp', 'Current Measurement'])
 
     # Loop for 1 minute, taking a reading every second
-    for i in range(60):
+    for i in range(10):
         # Sending a command to request current measurement
         # Replace 'MEAS:CURR?' with the actual command for your device
         command = "MEAS:CURR?\r\n"

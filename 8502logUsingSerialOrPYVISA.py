@@ -3,7 +3,7 @@ import time
 import pyvisa
 
 # The device file for the USB to TTL adapter
-serial_port = '/dev/tty.usbserial-14330'
+serial_port = '/dev/tty.usbserial-14320'
 baud_rate = 9600  # Adjust as needed to match your device's requirements
 
 # Open the serial port
