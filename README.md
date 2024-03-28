@@ -1,6 +1,6 @@
-## Solar eclipse data logger 
-# Dr. Clark Hochgraf
-# Eclipse date: April 8, 2024
+# Solar eclipse data logger 
+## Dr. Clark Hochgraf
+## Eclipse date: April 8, 2024
 ''' 
 Overview: measures current reading from a BK Precision 8502B electronic load.
 Measurement is in units of amps and timestamped with UTC time.
