@@ -1,6 +1,16 @@
+## Solar eclipse data logger 
+# Dr. Clark Hochgraf
+# Eclipse date: April 8, 2024
+''' 
+Overview: measures current reading from a BK Precision 8502B electronic load.
+Measurement is in units of amps and timestamped with UTC time.
 
-
-### SET SCPI as the protocol on the 8502B Electronic load.
+Requirements:
+1) USB adapter to RS-232 at 9600 Baud 8N1
+2) 8502B must set the protocol as "SCPI", not "frame"
+3) Configure 8502B as constant current mode. Set current to max (12 amps)
+'''
+# 
 import serial
 import time
 import csv
@@ -28,12 +38,10 @@ def signal_handler(sig, frame):
 # Attach the signal handler for SIGINT
 signal.signal(signal.SIGINT, signal_handler)
 
-
-# Your existing functions and setup code goes here
-
 # The device file for the USB to TTL adapter
-serial_port = '/dev/tty.usbserial-14320'
-baud_rate = 9600  # Adjust as needed
+serial_port = '/dev/tty.usbserial-14330'
+#serial_port = '/dev/tty.usbserial-14320'
+baud_rate = 9600  
 ser = serial.Serial(serial_port, baud_rate, timeout=1)
 
 # Ensure the serial port is open
@@ -73,7 +81,7 @@ ax.set_ylabel('Current (A)')
 line, = ax.plot(x_data, y_data)
 
 # Parameter for the number of hours to plot
-hours_to_plot = 1  # Example: 1 hour
+hours_to_plot = 4  # Example: 4 hours
 # Calculate the total number of iterations (1 hour = 3600 seconds)
 total_iterations = hours_to_plot * 3600
 
@@ -89,7 +97,7 @@ def update(frame):
         plt.close(fig)  # Close the plot window
         sys.exit(0)  # Ensure the script exits
         return line,
-        
+
     if len(x_data) >= total_iterations:
         ani.event_source.stop()
         ser.close()
